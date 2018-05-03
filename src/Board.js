@@ -97,7 +97,7 @@
       var result = false;
       var row = this.get(0);
       // iterate through different rows
-      debugger;
+      
       for (var i = 0; i < row.length; i++) {
         if (this.hasRowConflictAt(i)) {
           result = true;
@@ -144,12 +144,39 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      //find starting row
+      var columnStart = majorDiagonalColumnIndexAtFirstRow;
+      var rowStart;  
+      var arrLength = this.get(0).length;
+      var result = false;
+      
+      for (var i = 0; i < arrLength; i++) {
+        if (this.get(i)[columnStart] === 1) {
+          rowStart = i;
+          break;
+        } 
+      }
+      columnStart++;
+      rowStart++;
+      
+      for (var i = rowStart; i < arrLength; i++) {
+        if (this.get(i)[columnStart] === 1){
+          result = true;
+        }
+        columnStart++;
+      }
+      return result; // fixme
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
-      return false; // fixme
+      var result = false;
+      for (var i = 0; i < this.get(0).length; i++) {
+        if (this.hasMajorDiagonalConflictAt(i)) {
+          result = true;
+        }
+      }
+      return result;
     },
 
 
